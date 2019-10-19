@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <section id="test1">
+                <h2>Test 1 - adds 'click.namespace'</h2>
+                <p>Button should add +1 to output. Button is added as NodeList</p>
+                <button>Add 1 with 'click.namespace'</button>
+
+                <div class="output">
+                    0
+                </div>
+        </section>
+        
+        <section id="test2">
+                <h2>Test 2 - adds 'click.differentnamespace'</h2>
+                <p>Button should add +1 to output unless we remove listener by clicking the other button.</p>
+                <button class="add">Add 1.</button>
+                <button class="remove">remove 'click.differentnamespace'</button>
+                <button class="addagain">add 'click.differentnamespace'</button>
+
+                <div class="output">
+                    0
+                </div>
+        </section>
+
+        <section id="test3">
+                <h2>Test 3 - adds focus and blur</h2>
+                <p>Focus and blur field to fire event</p>
+                <input placeholder="interact with me">
+
+                <div class="output">
+                    no event fired yet.
+                </div>
+        </section>
+
+
+        <script type="module">
+            import { EventHandler } from './src/index.js'
+            
+            // TEST 1
+            const test1button = document.querySelectorAll('#test1 button')
+            const test1output = document.querySelector('#test1 .output')
+            EventHandler.addListener(test1button, 'click', e => {
+                let current = parseInt(test1output.innerHTML)
+                current++
+                test1output.innerHTML = current
+            })
+
+            // TEST 2
+            const test2addbuttoncallback = e => {
+                let current = parseInt(test2output.innerHTML)
+                current++
+                test2output.innerHTML = current
+            }
+            
+            const test2button = document.querySelectorAll('#test2 .add')
+            const test2output = document.querySelector('#test2 .output')
+            EventHandler.addListener(test2button, 'click.differentnamespace', test2addbuttoncallback)
+
+            const test2remove = document.querySelector('#test2 .remove')
+            EventHandler.addListener(test2remove, 'click.differentnamespace', e => {
+                EventHandler.removeListener(test2button, 'click.differentnamespace')
+            })
+            const test2 = document.getElementById('test2')
+            const test2addagain = test2.getElementsByClassName('addagain')
+            EventHandler.addListener(test2addagain, 'click.differentnamespace', e => {
+                EventHandler.addListener(test2button, 'click.differentnamespace', test2addbuttoncallback)
+            })
+
+            // TEST 3
+            const test3input = document.querySelectorAll('#test3 input')
+            const test3output = document.querySelector('#test3 .output')
+            EventHandler.addListener('#test3 input', 'focus', e => {
+                test3output.innerHTML = 'Field is in focus!'
+            })
+            EventHandler.addListener(test3input, 'blur', e => {
+                test3output.innerHTML = 'Field is blurred!'
+            })
+        </script>
+    </body>
+</html>

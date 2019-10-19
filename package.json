@@ -1,0 +1,33 @@
+{
+  "name": "@wazp/eventhandler",
+  "version": "0.1.0",
+  "description": "quick and dirty EventHandler singleton to keep track of event listeners",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wazp/EventHandler.git"
+  },
+  "keywords": [
+    "eventhandler",
+    "event",
+    "handler",
+    "event",
+    "manager",
+    "dom",
+    "addeventlistener",
+    "removeeventlistener"
+  ],
+  "author": "Patrick Waks",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wazp/EventHandler/issues"
+  },
+  "homepage": "https://github.com/wazp/EventHandler#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
