@@ -1,12 +1,12 @@
 ﻿/**
  * Quick and dirty Event Handler singleton that handles namespacing of events.
- * At the moment it only handles native events, and if you remove a function it will get removed
- * on all elements it is bound to.
+ * At the moment it only handles native events
+ * 
  * @module EventHandler
  * @category utils
  *
  * @todo Add list of native events that we can compare against, so we can do custom events with the same singleton
- * @todo Handle add/remove listener on a per element basis
+ * @done Handle add/remove listener on a per element basis
  * @todo Handle later added elements (bind to document, compare on element)
  *
  * @example
@@ -21,6 +21,7 @@ class EventHandlerClass {
         this.on = this.addListener
         this.off = this.removeListener
 
+        // this is just for debugging reasons right now!
         document.addEventListener(`keyup`, e => {
             if (e.key === `E`) {
                 console.log(functionMap)
@@ -58,8 +59,12 @@ class EventHandlerClass {
             }
 
             const _event = getEventFromMap(el, event)
+            try {
+                el.addEventListener(_event.event, _event.callback, _event.options)
+            } catch (e) {
+                console.warn(`Couldn't add event`)
+            }
             
-            el.addEventListener(_event.event, _event.callback, _event.options)
         })
     }
 

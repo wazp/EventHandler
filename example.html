@@ -1,9 +1,46 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <style>
+            body{
+                font: 1rem Helvetica, Arial;
+            }
+            .flex{
+                display:flex;
+            }
+            .item{
+                width:20%;
+            }
+        </style>
     </head>
     <body>
+        <section id="examples">
+            <h2>ReadMe examples:</h2>
+            <div class="flex">
+                <div class="item">
+                    <button id="uniqueID">document.querySelector(`#uniqueID`)</button>
+                </div>
+                <div class="item">
+                    <button class="my-elements">document.querySelectorAll(`.my-elements`)</button>
+                    <button class="my-elements">document.querySelectorAll(`.my-elements`)</button>
+                    <button class="my-elements">document.querySelectorAll(`.my-elements`)</button>
+                </div>
+                <div class="item">
+                    <button id="anotherUniqueID">document.getElementById(`#anotherUniqueID`)</button>
+                </div>
+                <div class="item">
+                    <button class="my-other-elements">document.getElementsByClassName('.my-other-elements')</button>
+                    <button class="my-other-elements">document.getElementsByClassName('.my-other-elements')</button>
+                    <button class="my-other-elements">document.getElementsByClassName('.my-other-elements')</button>
+                </div>
+                <div class="item" id="myId">
+                    <button class="classInside">`#myId .classInside` selector</button>
+                    <button class="classInside">`#myId .classInside` selector</button>
+                    <button class="classInside">`#myId .classInside` selector</button>
+                </div>
+            </div>            
+        </section>
+
         <section id="test1">
                 <h2>Test 1 - adds 'click.namespace'</h2>
                 <p>Button should add +1 to output. Button is added as NodeList</p>
@@ -40,6 +77,28 @@
         <script type="module">
             import { EventHandler } from './src/index.js'
             
+            // examples from readme:
+            const clickEvent = e => {
+                console.log(`clicked element`, e.currentTarget)
+            }
+
+            // works with NodeList, both with one and multiple elements
+            const mySingleElement = document.querySelector(`#uniqueID`)
+            const myMultipleElements = document.querySelectorAll(`.my-elements`)
+
+            EventHandler.addListener(mySingleElement, `click.singleElements`, clickEvent)
+            EventHandler.addListener(myMultipleElements, `click.multipleElements`, clickEvent)
+
+            // also works with HTMLCollections
+            const myId = document.getElementById(`anotherUniqueID`)
+            const myClasses = document.getElementsByClassName('my-other-elements')
+
+            EventHandler.addListener(myId, `click.myId`, clickEvent)
+            EventHandler.addListener(myClasses, `click.myClasses`, clickEvent)
+
+            // you can also send in a selector directly
+            EventHandler.addListener(`#myId .classInside`, `click.mySelector`, clickEvent)
+
             // TEST 1
             const test1button = document.querySelectorAll('#test1 button')
             const test1output = document.querySelector('#test1 .output')
