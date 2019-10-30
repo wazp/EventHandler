@@ -10,13 +10,9 @@ export const getIterable = (el) => {
 
     const isList = NodeList.prototype.isPrototypeOf(el) || HTMLCollection.prototype.isPrototypeOf(el) // eslint-disable-line no-prototype-builtins
 
-    if (!isList) {
+    Array.prototype.forEach.call(el, el => {
         els.push(el)
-    } else {
-        Array.prototype.forEach.call(el, el => {
-            els.push(el)
-        })
-    }
+    })
 
     return els
 }

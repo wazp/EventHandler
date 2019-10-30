@@ -24,7 +24,8 @@
     "manager",
     "dom",
     "addeventlistener",
-    "removeeventlistener"
+    "removeeventlistener",
+    "triggerevent"
   ],
   "author": "Patrick Waks",
   "license": "MIT",

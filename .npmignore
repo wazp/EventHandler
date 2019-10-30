@@ -1,4 +1,6 @@
 *.test.js
 example.html
-/specs
+specs/
+coverage/
 babel.config.js
+jest.config.js
