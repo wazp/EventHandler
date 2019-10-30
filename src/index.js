@@ -12,7 +12,15 @@
  * @example
  * EventHandler.addListener(`#myId .selectboxes`, `focus.namespace`, e => { focus(el, settings, e) })
  * EventHandler.addListener(input, `focus.namespace`, e => { focus(el, settings, e) })
-  */
+ */
+
+import { functionMap } from './functionMap.js'
+import { isNative } from './nativeEvents.js'
+import { getIterable } from './getIterable.js'
+import { createEventObject } from './createEventObject.js'
+import { getElementFromMap } from './getElementFromMap.js'
+import { getEventFromMap } from './getEventFromMap.js'
+
 class EventHandlerClass {
     constructor() {
         /**
@@ -21,12 +29,7 @@ class EventHandlerClass {
         this.on = this.addListener
         this.off = this.removeListener
 
-        // this is just for debugging reasons right now!
-        document.addEventListener(`keyup`, e => {
-            if (e.key === `E`) {
-                console.log(functionMap)
-            }
-        })
+        this.showMap = () => { console.log(functionMap) }
     }
 
     /**
@@ -59,12 +62,14 @@ class EventHandlerClass {
             }
 
             const _event = getEventFromMap(el, event)
+
+            console.log(`isNative: ${isNative(_event.event)}`)
+
             try {
                 el.addEventListener(_event.event, _event.callback, _event.options)
             } catch (e) {
                 console.warn(`Couldn't add event`)
             }
-            
         })
     }
 
@@ -74,9 +79,9 @@ class EventHandlerClass {
      * @param {string} event Event to remove
      */
     removeListener(el, event) {
-        const els = getIterable(el)
+        const _els = getIterable(el)
 
-        els.forEach(el => {
+        _els.forEach(el => {
             const _el = getElementFromMap(el)
             const _event = getEventFromMap(el, event)
 
@@ -88,66 +93,23 @@ class EventHandlerClass {
                 /** remove event listener */
                 el.removeEventListener(_event.event, _event.callback, _event.options)
             }
-            
-        })
-        
-    }
-}
-
-/**
- * Map of all added event functions
- * @private
- */
-const functionMap = []
-
-/**
- * Gives back an object detailing the event information and callback, to include in the function map
- * @param {string} event Event name, including namespace if available
- * @param {function} cb Callback function
- * @returns {object} eventInfo
- */
-const createEventObject = (event, cb, options) => {
-    const eventName = event.split('.')
-    const eventInfo = {
-        'event': eventName[0],
-        'namespace': eventName[1],
-        'callback': cb,
-        'options': options
-    }
-    return eventInfo
-}
-
-/**
- * Function to return iterable, regardless of being send selector string, nodelist or html collection.
- * @param {string|NodeList|HTMLCollection} el Selector string, Node List or HTML Collection
- */
-const getIterable = (el) => {
-    const els = []
-    if (typeof el === `string`) { // if string, query the elements!
-        el = document.querySelectorAll(el)
-    }
-
-    const isList = NodeList.prototype.isPrototypeOf(el) || HTMLCollection.prototype.isPrototypeOf(el) // eslint-disable-line no-prototype-builtins
-
-    if (!isList) {
-        els.push(el)
-    } else {
-        Array.prototype.forEach.call(el, el => {
-            els.push(el)
         })
     }
 
-    return els
-}
+    // TODO: We need to figure out how to only trigger namespaced events etc...
+    triggerEvent(el, event, eventOptions){
+        const  _els = getIterable(el)
+        const eventName = event.split('.')
+        const options = eventOptions || {}
 
-const getElementFromMap = (el) => {
-    return functionMap.find(o => o.element === el)
-}
+        const ev = new Event(eventName[0], options)
 
-const getEventFromMap = (el, event) => {
-    const _eventName = event.split('.')
-    const _element = getElementFromMap(el)
-    return _element.events.find(o => o.event === _eventName[0] && o.namespace === _eventName[1])
+        _els.forEach(el => {
+            const _el = getElementFromMap(el)
+
+            _el.dispatchEvent(ev)
+        })
+    }
 }
 
 export const EventHandler = new EventHandlerClass()

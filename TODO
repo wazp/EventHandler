@@ -1,0 +1,5 @@
+☐ Make it work with custom events as well
+☐ Handle elements added to DOM at a later time 
+☐ Event triggering!
+    ☐ Native
+    ☐ Custom

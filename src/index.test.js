@@ -1,2 +1,0 @@
-import { EventHandler } from './index'
-

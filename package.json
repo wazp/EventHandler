@@ -4,7 +4,8 @@
   "description": "quick and dirty EventHandler singleton to keep track of event listeners",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest ./src"
+    "test": "jest",
+    "release": "np"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,10 @@
   "homepage": "https://github.com/wazp/EventHandler#readme",
   "dependencies": {},
   "devDependencies": {
-    "jest": "^24.9.0"
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
+    "np": "^5.1.1"
   }
 }

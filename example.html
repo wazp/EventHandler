@@ -77,6 +77,13 @@
         <script type="module">
             import { EventHandler } from './src/index.js'
             
+            // just for debugging purposes:
+            document.addEventListener(`keyup`, e => {
+                if (e.key === `E`) {
+                    EventHandler.showMap()
+                }
+            })
+
             // examples from readme:
             const clickEvent = e => {
                 console.log(`clicked element`, e.currentTarget)

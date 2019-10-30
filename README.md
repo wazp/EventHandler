@@ -28,7 +28,3 @@ EventHandler.addListener(myClasses, `click.myClasses`, clickEvent)
 // you can also send in a selector directly
 EventHandler.addListener(`#myId .classInside`, `click.mySelector`, clickEvent)
 ```
-
-## todo
-- [ ] Make it work with custom events as well
-- [ ] Handle elements added to DOM at a later time 
