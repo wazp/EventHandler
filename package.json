@@ -7,6 +7,11 @@
     "test": "jest",
     "release": "np"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wazp/EventHandler.git"
@@ -32,6 +37,7 @@
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
     "babel-jest": "^24.9.0",
+    "husky": "^3.0.9",
     "jest": "^24.9.0",
     "np": "^5.1.1"
   }

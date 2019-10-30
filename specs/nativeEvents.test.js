@@ -1,10 +1,9 @@
 import { isNative } from '../src/nativeEvents'
-import TestRunner from 'jest-runner'
 
-test(`click to be part of the native event array`, () => {
+test(`should return true when supplied event is part of our array`, () => {
     expect(isNative(`click`)).toBe(true)
 })
 
-test(`blablabla to not be part of the native event array`, () => {
-    expect(isNative(`blablabla`)).not.toBe(true)
+test(`should not return true when supplied event is not part of our array`, () => {
+    expect(isNative(`thisIsNotInArray`)).not.toBe(true)
 })
