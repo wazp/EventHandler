@@ -2,5 +2,5 @@
 example.html
 specs/
 coverage/
-babel.config.js
-jest.config.js
+src/
+*.config.js

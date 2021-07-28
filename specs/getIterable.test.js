@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { getIterable } from '../src/getIterable'
 import { exportAllDeclaration } from '@babel/types'
 

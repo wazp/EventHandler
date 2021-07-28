@@ -1,4 +1,5 @@
-const nativeEvents = ['click','dblclick','mouseup','mousedown','contextmenu',// mouse buttons
+const nativeEvents = [
+    'click','dblclick','mouseup','mousedown','contextmenu',// mouse buttons
     'mousewheel','mousemultiwheel','DOMMouseScroll', // mouse wheel
     'mouseover','mouseout','mousemove','selectstart','selectend', // mouse movement
     'keydown','keypress','keyup', // keyboard

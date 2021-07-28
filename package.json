@@ -2,9 +2,12 @@
   "name": "@wazp/eventhandler",
   "version": "0.1.0",
   "description": "quick and dirty EventHandler singleton to keep track of event listeners",
-  "main": "src/index.js",
+  "main": "dist/eventhandler.js",
   "scripts": {
-    "test": "jest",
+    "dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",
+    "dev:watch": "npm run dev -- -w",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "test": "jest --config ./jest.config.js",
     "release": "np"
   },
   "husky": {
@@ -25,7 +28,10 @@
     "dom",
     "addeventlistener",
     "removeeventlistener",
-    "triggerevent"
+    "triggerevent",
+    "on",
+    "off",
+    "trigger"
   ],
   "author": "Patrick Waks",
   "license": "MIT",
@@ -35,11 +41,16 @@
   "homepage": "https://github.com/wazp/EventHandler#readme",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/preset-env": "^7.6.3",
-    "babel-jest": "^24.9.0",
-    "husky": "^3.0.9",
-    "jest": "^24.9.0",
-    "np": "^5.1.1"
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
+    "babel-jest": "^27.0.6",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "cross-env": "^7.0.3",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
+    "np": "^7.5.0",
+    "webpack": "^5.47.0",
+    "webpack-cli": "^4.7.2"
   }
 }
